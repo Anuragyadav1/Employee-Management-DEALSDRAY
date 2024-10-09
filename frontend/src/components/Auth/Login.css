@@ -1,0 +1,124 @@
+/* Container Styling */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Changed from center to flex-start */
+  height: 100vh;
+  background-color: #f0f2f5;
+  padding: 20px;
+}
+
+/* Move the box up slightly to avoid vertical scrollbar */
+.login-box {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  margin-top: 50px; /* Adjust this value to control how much it moves up */
+}
+
+.login-box h2 {
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* Input Group Styling */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  text-align: left;
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 14px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+/* Button Styling */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login-box {
+    padding: 20px;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 40px; /* Adjust accordingly for smaller devices */
+  }
+
+  .input-group input {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+/* Small Devices */
+@media (max-width: 480px) {
+  .login-box {
+    padding: 15px;
+    width: 100%;
+    max-width: 280px;
+    margin-top: 30px; /* Adjust accordingly for smallest devices */
+  }
+
+  .login-box h2 {
+    font-size: 22px;
+  }
+
+  .input-group label {
+    font-size: 12px;
+  }
+
+  .input-group input {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+
+

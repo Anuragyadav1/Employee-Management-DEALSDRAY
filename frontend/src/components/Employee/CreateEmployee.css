@@ -1,0 +1,131 @@
+/* Container Styling */
+.create-employee-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Title Styling */
+  .create-employee-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Input Field Styling */
+  .create-employee-container input[type="text"],
+  .create-employee-container input[type="email"],
+  .create-employee-container input[type="url"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  /* Radio and Checkbox Container */
+  .gender-container,
+  .course-container {
+    display: flex;
+    /* justify-content: space-between; */
+    /* margin: 20px 0; */
+    margin-top: 20px;
+  }
+  .gender-container label,input,.course-container label,input {
+    cursor: pointer;
+  }
+
+  .error {
+    color: red; /* Change to desired error color */
+    font-size: 0.9em; /* Optional: make it smaller */
+    margin-top: 5px; /* Optional: spacing */
+  }
+  
+  
+  /* Label Styling */
+  .create-employee-container label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+    margin-right: 15px;
+    margin-left: 4px;
+  }
+  
+  /* Radio and Checkbox Inputs */
+  .create-employee-container input[type="radio"],
+  .create-employee-container input[type="checkbox"] {
+    margin-right: 8px;
+  }
+  
+  /* Section Title */
+  .create-employee-container h4 {
+    margin: 15px 0 10px 0;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  /* Button Styling */
+  .create-employee-container button[type="submit"] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-employee-container button[type="submit"]:hover {
+    background-color: #45a049;
+  }
+
+ .designation-container {
+    margin: 10px 0; /* Space above and below */
+    width: 300px;
+}
+
+.designation-container select {
+  width: 100%; /* Full width */
+  padding: 8px; /* Padding for aesthetics */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 4px; /* Rounded corners */
+}
+
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .create-employee-container {
+      padding: 15px;
+    }
+    .create-employee-container input[type="text"],
+    .create-employee-container input[type="email"],
+    .create-employee-container button[type="submit"] {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+  
+  /* Proper Arrangement */
+  .create-employee-container form > div {
+    margin-bottom: 15px;
+  }
+  
+  .gender-container, 
+  .course-container {
+    flex-wrap: wrap;
+  }
+  
+  .course-container label {
+    margin-bottom: 5px;
+  }
+  
+  

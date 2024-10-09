@@ -1,0 +1,213 @@
+/* Container Styling */
+.employee-list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.employee-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+/* Header Section */
+.employee-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.employee-list-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.search-input {
+  padding: 10px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* Loading Text */
+.loading-text {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+}
+
+/* No Results Found */
+.no-results {
+  text-align: center;
+  color: #555;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+/* Table Styling */
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.employee-table thead {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.employee-table th, .employee-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.employee-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.employee-table tbody tr:hover {
+  background-color: #e9f5e9;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-button, .delete-button {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+}
+
+.edit-button {
+  background-color: #007BFF;
+}
+
+.delete-button {
+  background-color: #FF4136;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+
+.delete-button:hover {
+  background-color: #c02f23;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.pagination-button {
+  margin: 0 5px;
+  width: 80px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-button:hover {
+  background-color: #0056b3;
+}
+
+.pagination-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-button.active {
+  background-color: #b5cee9;
+  font-weight: bold;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .employee-list-header {
+      flex-direction: column;
+      align-items: flex-start; /* Aligns header elements to the start */
+  }
+
+  .employee-list-header h2 {
+      font-size: 20px; /* Smaller header for mobile */
+  }
+
+  .search-input {
+      width: 100%; /* Full width for search input */
+      max-width: none; /* Remove max-width for mobile */
+      margin-bottom: 10px; /* Space below the search bar */
+  }
+
+  .employee-table thead {
+      display: none; /* Hide table headers */
+  }
+
+  .employee-table tbody tr {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+      background-color: white; /* Ensure row is white for clarity */
+  }
+
+  .employee-table tbody td {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+  }
+
+  .employee-table tbody td:last-child {
+      border-bottom: none; /* Remove border for the last item */
+  }
+
+  .action-buttons {
+      flex-direction: column; /* Stack buttons vertically */
+      align-items: flex-start; /* Align buttons to the start */
+  }
+}
+
+/* Further adjustments for very small screens */
+@media (max-width: 480px) {
+  .employee-list-header h2 {
+      font-size: 18px; /* Further reduce header size */
+  }
+
+  .search-input {
+      font-size: 14px; /* Smaller input font size */
+      padding: 8px; /* Adjust padding */
+  }
+
+  .employee-table tbody td {
+      padding: 8px; /* Smaller padding for cells */
+  }
+
+  .edit-button, .delete-button {
+      font-size: 12px; /* Smaller button text */
+      padding: 6px 10px; /* Smaller button padding */
+  }
+}

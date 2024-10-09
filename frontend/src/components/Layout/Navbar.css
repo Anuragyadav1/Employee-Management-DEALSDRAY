@@ -1,0 +1,135 @@
+/* Navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 15px 20px;
+  font-family: 'Arial', sans-serif;
+  flex-wrap: wrap; /* Added to handle wrapping on smaller screens */
+}
+
+.navbar-logo {
+  height: 50px; /* Adjust based on your logo's size */
+  width: auto; /* Ensure logo maintains aspect ratio */
+  display: inline-block;
+}
+
+/* Brand/Title */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand h2 {
+  margin: 0;
+}
+
+.navbar-title {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.navbar-title:hover {
+  color: #f0a500;
+}
+
+/* Navigation links container */
+.nav-links {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 20px; /* Better spacing between nav links */
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  /* Removed excessive margin-right */
+  margin-right: 30px;
+  font-size: 1.1rem;
+}
+
+.nav-link:hover {
+  color: #decfae;
+}
+
+/* User info section */
+.user-info {
+  color: #fff;
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+/* Logout button */
+.logout-button {
+  background-color: #f05454;
+  color: white;
+  border: none;
+  padding: 8px 12px; /* Increased padding for better touch area */
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1.1rem;
+}
+
+.logout-button:hover {
+  background-color: #d03a3a;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .nav-link {
+    margin-right: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%; /* Ensures the links take up full width */
+    margin-top: 10px;
+    gap: 10px; /* Adds space between links in column view */
+  }
+
+  .navbar-title {
+    font-size: 1.4rem; /* Slightly reduced title size for smaller screens */
+  }
+
+  .nav-link,
+  .logout-button {
+    margin-bottom: 10px;
+    font-size: 1rem; /* Slightly reduced font size for better mobile view */
+  }
+
+  .user-info {
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-logo {
+    height: 40px; /* Reduced logo size for very small screens */
+  }
+
+  .navbar-title {
+    font-size: 1.2rem;
+  }
+
+  .logout-button {
+    font-size: 0.9rem;
+    padding: 6px 10px; /* Reduced padding for smaller buttons */
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+  }
+}
