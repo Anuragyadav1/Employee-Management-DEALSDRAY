@@ -9,6 +9,7 @@ const EmployeeList = () => {
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [employeesPerPage] = useState(10); // Number of employees per page
+  let count = employees.length;
 
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -66,6 +67,7 @@ const EmployeeList = () => {
     <div className='employee-list-container'>
       <div className='employee-list-header'>
         <h2>Employee List</h2>
+        <h4>Total Count: {count}</h4>
         <input
           type="text"
           placeholder="Search by name"
