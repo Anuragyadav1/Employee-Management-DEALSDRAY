@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import './Login.css';
@@ -8,6 +8,19 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const isLoggedIn = () => {
+    // Replace this with your actual logic to check if user is authenticated
+    const token = localStorage.getItem('token');
+    return token;
+  };
+
+  useEffect(()=>{
+    if (isLoggedIn()) {
+      // If the user is logged in, redirect them to the homepage or dashboard
+      navigate('/'); // Change this to the desired redirect path
+    }
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();

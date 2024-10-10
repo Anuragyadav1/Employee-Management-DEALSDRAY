@@ -29,8 +29,12 @@ const CreateEmployee = () => {
     return regex.test(email);
   };
 
+  const isNameValid = (name) => {
+    return /^[A-Za-z\s]+$/.test(name);
+  };
+  
   const isMobileValid = (mobile) => {
-    return /^\d+$/.test(mobile);
+    return /^[6789]\d{9}$/.test(mobile);
   };
 
   const isImageUrlValid = (url) => {
@@ -40,7 +44,7 @@ const CreateEmployee = () => {
   const handleBlur = (field) => {
     switch (field) {
       case 'name':
-        setErrors({ ...errors, name: !name ? 'Name is required.' : '' });
+        setErrors({ ...errors, name: !name ? 'Name is required.' : (isNameValid(name) ? '' : 'Name should contain only letter.')});
         break;
       case 'email':
         setErrors({ 
@@ -49,7 +53,7 @@ const CreateEmployee = () => {
         });
         break;
       case 'mobile':
-        setErrors({ ...errors, mobile: !mobile ? 'Mobile number is required.' : (isMobileValid(mobile) ? '' : 'Mobile number should contain only numbers.') });
+        setErrors({ ...errors, mobile: !mobile ? 'Mobile number is required.' : (isMobileValid(mobile) ? '' : 'Mobile numbers must have exactly 10 digits and start with 6, 7, 8, or 9.') });
         break;
       case 'designation':
         setErrors({ ...errors, designation: !designation ? 'Designation is required.' : '' });
@@ -67,31 +71,74 @@ const CreateEmployee = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    // Validate all fields
+    let hasErrors = false;
     
-    // Final validation before submitting
-    if (!name || !email || !mobile || !designation || !gender || !imgUrl) {
-      alert('All fields are required!');
+    if (!name) {
+      setErrors((prevErrors) => ({ ...prevErrors, name: 'Name is required.' }));
+      hasErrors = true;
+    } else if (!isNameValid(name)) {
+      setErrors((prevErrors) => ({ ...prevErrors, name: 'Name should contain only letters.' }));
+      hasErrors = true;
+    }
+  
+    if (!email) {
+      setErrors((prevErrors) => ({ ...prevErrors, email: 'Email is required.' }));
+      hasErrors = true;
+    } else if (!isEmailValid(email)) {
+      setErrors((prevErrors) => ({ ...prevErrors, email: 'Invalid email format.' }));
+      hasErrors = true;
+    }
+  
+    if (!mobile) {
+      setErrors((prevErrors) => ({ ...prevErrors, mobile: 'Mobile numbers must have exactly 10 digits and start with 6, 7, 8, or 9.' }));
+      hasErrors = true;
+    } else if (!isMobileValid(mobile)) {
+      setErrors((prevErrors) => ({ ...prevErrors, mobile: 'Mobile number should contain only numbers.' }));
+      hasErrors = true;
+    }
+  
+    if (!designation) {
+      setErrors((prevErrors) => ({ ...prevErrors, designation: 'Designation is required.' }));
+      hasErrors = true;
+    }
+  
+    if (!gender) {
+      setErrors((prevErrors) => ({ ...prevErrors, gender: 'Gender is required.' }));
+      hasErrors = true;
+    }
+  
+    if (!imgUrl) {
+      setErrors((prevErrors) => ({ ...prevErrors, imgUrl: 'Image URL is required.' }));
+      hasErrors = true;
+    } else if (!isImageUrlValid(imgUrl)) {
+      setErrors((prevErrors) => ({ ...prevErrors, imgUrl: 'Image URL must be a valid jpg or png file.' }));
+      hasErrors = true;
+    }
+  
+    // If any errors are found, prevent submission
+    if (hasErrors) {
       return;
     }
-
-    // Check for duplicate email (server-side validation)
+  
     try {
       // Check for duplicate email (server-side validation)
       const emailCheckResponse = await api.get(`/api/employees/check-email?email=${email}`);
       if (emailCheckResponse.data) {
-          alert('Email already exists. Please use a different email.');
-          return;
+        alert('Email already exists. Please use a different email.');
+        return;
       }
-  } catch (error) {
+    } catch (error) {
       if (error.response && error.response.status === 404) {
-          // This means the email is not found, which is expected
+        // Email not found (which is good)
       } else {
-          console.error('Error checking email:', error);
-          alert('An error occurred while checking the email.');
-          return;
+        console.error('Error checking email:', error);
+        alert('An error occurred while checking the email.');
+        return;
       }
-  }
-
+    }
+  
     // If all validations pass, create the employee
     await api.post('/api/employees', {
       name,
@@ -104,6 +151,7 @@ const CreateEmployee = () => {
     });
     navigate('/employees');
   };
+  
 
   const handleCheckboxChange = (course) => {
     setCourse((prev) =>
@@ -119,8 +167,13 @@ const CreateEmployee = () => {
           type="text"
           placeholder="Name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
-          onBlur={() => handleBlur('name')}
+          onChange={(e) => {
+           setName(e.target.value);
+           if (isNameValid(e.target.value)) {
+             setErrors((prevErrors) => ({ ...prevErrors, name: '' }));
+          }
+          }}          
+         onBlur={() => handleBlur('name')}
         />
         {errors.name && <span className="error">{errors.name}</span>}
         
@@ -128,8 +181,13 @@ const CreateEmployee = () => {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          onBlur={() => handleBlur('email')}
+          onChange={(e) => {
+          setEmail(e.target.value);
+          if (isEmailValid(e.target.value)) {
+            setErrors((prevErrors) => ({ ...prevErrors, email: '' }));
+          }
+        }}       
+        onBlur={() => handleBlur('email')}
         />
         {errors.email && <span className="error">{errors.email}</span>}
         
@@ -137,8 +195,13 @@ const CreateEmployee = () => {
           type="text"
           placeholder="Mobile No"
           value={mobile}
-          onChange={(e) => setMobile(e.target.value)}
-          onBlur={() => handleBlur('mobile')}
+          onChange={(e) => {
+          setMobile(e.target.value);
+          if (isMobileValid(e.target.value)) {
+            setErrors((prevErrors) => ({ ...prevErrors, mobile: '' }));
+          }
+        }}     
+         onBlur={() => handleBlur('mobile')}
         />
         {errors.mobile && <span className="error">{errors.mobile}</span>}
 
@@ -169,6 +232,7 @@ const CreateEmployee = () => {
               checked={gender === 'M'}
               onChange={() => setGender('M')}
               onBlur={() => handleBlur('gender')}
+              required
             />
             Male
           </label>
@@ -218,8 +282,13 @@ const CreateEmployee = () => {
           type="text"
           placeholder="Image URL"
           value={imgUrl}
-          onChange={(e) => setImgUrl(e.target.value)}
-          onBlur={() => handleBlur('imgUrl')}
+          onChange={(e) => {
+          setImgUrl(e.target.value);
+          if (isImageUrlValid(e.target.value)) {
+            setErrors((prevErrors) => ({ ...prevErrors, imgUrl: '' }));
+          }
+        }}         
+         onBlur={() => handleBlur('imgUrl')}
         />
         {errors.imgUrl && <span className="error">{errors.imgUrl}</span>}
 

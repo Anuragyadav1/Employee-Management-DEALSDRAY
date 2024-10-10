@@ -7,12 +7,16 @@ import EditEmployee from './components/Employee/EditEmployee';
 import Navbar from './components/Layout/Navbar';
 import Dashboard from './components/Layout/Dashboard';
 import PrivateRoute from './components/PrivateRoute'
+import Home from './components/Layout/Home';
+import NotFoundPage from './components/Layout/404Page';
 
 const App = () => {
   return (
     <Router>
       <Navbar />
       <Routes>
+        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route 
           path="/dashboard" 

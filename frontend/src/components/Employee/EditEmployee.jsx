@@ -35,14 +35,17 @@ const EditEmployee = () => {
   }, [id]);
 
   // Validation functions
+  const isNameValid = (name) => {
+    return /^[A-Za-z\s]+$/.test(name);
+  };  
   const isEmailValid = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  const isMobileValid = (mobile) => /^\d+$/.test(mobile);
+  const isMobileValid = (mobile) => /^[6789]\d{9}$/.test(mobile);
   const isImageUrlValid = (url) => /\.(jpg|jpeg|png)$/.test(url);
 
   const handleBlur = (field) => {
     switch (field) {
       case 'name':
-        setErrors({ ...errors, name: !employee.name ? 'Name is required.' : '' });
+        setErrors({ ...errors, name: !employee.name ? 'Name is required.' :  (isNameValid(employee.name) ? '' : 'Name should contain only letters.') });
         break;
       case 'email':
         setErrors({
@@ -61,7 +64,7 @@ const EditEmployee = () => {
             ? 'Mobile number is required.'
             : isMobileValid(employee.mobile)
             ? ''
-            : 'Mobile number should contain only numbers.',
+            : 'Mobile number should contain only 10 digit numbers.',
         });
         break;
       case 'designation':
@@ -96,17 +99,57 @@ const EditEmployee = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Final validation before submitting
-    if (!employee.name || !employee.email || !employee.mobile || !employee.designation || !employee.imgUrl) {
-      alert('All fields are required!');
+  
+    // Validation checks before submitting the form
+    let hasErrors = false;
+  
+    if (!employee.name) {
+      setErrors((prevErrors) => ({ ...prevErrors, name: 'Name is required.' }));
+      hasErrors = true;
+    } else if (!isNameValid(employee.name)) {
+      setErrors((prevErrors) => ({ ...prevErrors, name: 'Name should contain only letters.' }));
+      hasErrors = true;
+    }
+  
+    if (!employee.email) {
+      setErrors((prevErrors) => ({ ...prevErrors, email: 'Email is required.' }));
+      hasErrors = true;
+    } else if (!isEmailValid(employee.email)) {
+      setErrors((prevErrors) => ({ ...prevErrors, email: 'Invalid email format.' }));
+      hasErrors = true;
+    }
+  
+    if (!employee.mobile) {
+      setErrors((prevErrors) => ({ ...prevErrors, mobile: 'Mobile number is required.' }));
+      hasErrors = true;
+    } else if (!isMobileValid(employee.mobile)) {
+      setErrors((prevErrors) => ({ ...prevErrors, mobile: 'Mobile numbers must have exactly 10 digits and start with either 6, 7, 8, or 9.' }));
+      hasErrors = true;
+    }
+  
+    if (!employee.designation) {
+      setErrors((prevErrors) => ({ ...prevErrors, designation: 'Designation is required.' }));
+      hasErrors = true;
+    }
+  
+    if (!employee.imgUrl) {
+      setErrors((prevErrors) => ({ ...prevErrors, imgUrl: 'Image URL is required.' }));
+      hasErrors = true;
+    } else if (!isImageUrlValid(employee.imgUrl)) {
+      setErrors((prevErrors) => ({ ...prevErrors, imgUrl: 'Image URL must be a valid jpg or png file.' }));
+      hasErrors = true;
+    }
+  
+    // If any validation errors exist, prevent form submission
+    if (hasErrors) {
       return;
     }
-
+  
     // If all validations pass, update the employee
     await api.patch(`/api/employees/${id}`, employee);
     navigate('/employees');
   };
+  
 
   if (!employee) return <div className="loading">Loading...</div>;
 
@@ -118,7 +161,12 @@ const EditEmployee = () => {
           type="text"
           placeholder="Name"
           value={employee.name}
-          onChange={(e) => setEmployee({ ...employee, name: e.target.value })}
+          onChange={(e) => {
+            setEmployee({ ...employee, name: e.target.value });
+            if (isNameValid(e.target.value)) {
+              setErrors((prevErrors) => ({ ...prevErrors, name: '' }));
+            }
+          }}      
           onBlur={() => handleBlur('name')}
           required
         />
@@ -128,7 +176,12 @@ const EditEmployee = () => {
           type="email"
           placeholder="Email"
           value={employee.email}
-          onChange={(e) => setEmployee({ ...employee, email: e.target.value })}
+          onChange={(e) => {
+          setEmployee({ ...employee, email: e.target.value });
+             if (isEmailValid(e.target.value)) {
+              setErrors((prevErrors) => ({ ...prevErrors, email: '' }));
+           }
+         }}        
           onBlur={() => handleBlur('email')}
           required
         />
@@ -138,7 +191,12 @@ const EditEmployee = () => {
           type="text"
           placeholder="Mobile No"
           value={employee.mobile}
-          onChange={(e) => setEmployee({ ...employee, mobile: e.target.value })}
+          onChange={(e) => {
+          setEmployee({ ...employee, mobile: e.target.value });
+          if (isMobileValid(e.target.value)) {
+            setErrors((prevErrors) => ({ ...prevErrors, mobile: '' }));
+           }
+         }}      
           onBlur={() => handleBlur('mobile')}
           required
         />
@@ -219,8 +277,13 @@ const EditEmployee = () => {
           type="text"
           placeholder="Image URL"
           value={employee.imgUrl}
-          onChange={(e) => setEmployee({ ...employee, imgUrl: e.target.value })}
-          onBlur={() => handleBlur('imgUrl')}
+          onChange={(e) => {
+          setEmployee({ ...employee, imgUrl: e.target.value });
+          if (isImageUrlValid(e.target.value)) {
+            setErrors((prevErrors) => ({ ...prevErrors, imgUrl: '' }));
+            }
+         }}      
+         onBlur={() => handleBlur('imgUrl')}
           required
         />
         {errors.imgUrl && <span className="error">{errors.imgUrl}</span>}

@@ -11,23 +11,25 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-brand">
         <h2>
-          <Link to="#" className="navbar-title">
+          <Link to="/" className="navbar-title">
              <img src={logo} alt="Logo" className="navbar-logo" />
           </Link>
         </h2>
       </div>
       <div className="nav-links">
         {token ? (
-          <> <Link to="/dashboard" className="nav-link">Home</Link>
+          <> <Link to="/" className="nav-link">Home</Link>
             <Link to="/create-employee" className="nav-link">CreateEmployee</Link>
             <Link to="/employees" className="nav-link">EmployeeList</Link>
-            <span className="user-info">{username || 'Admin'} </span> {/* Display username */}
+            <Link to="/dashboard" className="nav-link">  <span className="user-info">{username || 'Admin'} </span> </Link>{/* Display username */}
             <button className="logout-button" onClick={logout}>
               Logout
             </button>
           </>
-        ) : (
-          <Link to="/login" className="nav-link">Login</Link>
+        ) : (<>
+             <Link to="/" className="nav-link">Home</Link>
+             <Link to="/login" className="nav-link">Login</Link>
+           </>
         )}
       </div>
     </nav>

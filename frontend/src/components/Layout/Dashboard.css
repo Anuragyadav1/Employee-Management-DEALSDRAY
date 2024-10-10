@@ -15,6 +15,7 @@
 .dashboard-header h1 {
   font-size: 28px;
   color: #333;
+  margin-bottom: 30px;
 }
 
 .dashboard-header h2 {
@@ -39,7 +40,7 @@
 .nav-linkk {
   margin: 0 15px;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -163,7 +164,7 @@
   }
 
   .nav-linkk {
-    font-size: 14px; /* Smaller nav link size */
+    font-size: 20px; /* Smaller nav link size */
   }
 
   .dashboard-button {
