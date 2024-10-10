@@ -24,14 +24,43 @@ A **MERN stack** application for managing employee data, with features like auth
     ```
 2. Install dependencies:
     ```bash
-    cd server && npm install
-    cd ../client && npm install
+    cd backend && npm install
+    cd ../frontend && npm install
     ```
 
 ## Environment Variables
 
-Create a `.env` file in the `server` folder with:
+Create a `.env` file in the `backend` folder with:
 ```bash
 MONGO_URI=your-mongodb-connection-string
 JWT_SECRET=your-jwt-secret
 PORT=5000
+
+## Run the Application
+
+To run the project, follow these steps:
+
+1. **Start the Backend:**
+
+    Navigate to the `backend` directory and run the following command to start the backend server:
+
+    ```bash
+    cd backend
+    node server.js
+    ```
+
+    The backend will run on `http://localhost:5000`.
+
+2. **Start the Frontend:**
+
+    Navigate to the `frontend` directory and run the following command to start the React frontend:
+
+    ```bash
+    cd frontend
+    npm run dev
+    ```
+
+    The frontend will run on `http://localhost:5173`.
+
+After both servers are running, you can access the application by navigating to `http://localhost:5173` in your browser.
+
